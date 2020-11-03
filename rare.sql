@@ -7,9 +7,9 @@ CREATE TABLE 'posts'  (
       `publish_date` TEXT NOT NULL
 );
 
-CREATE TABLE 'catergory'  (
+CREATE TABLE 'category'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-      `name`   TEXT NOT NULL,
+      `name`   TEXT NOT NULL
 );
 
 CREATE TABLE 'tags'  (
@@ -36,9 +36,9 @@ CREATE TABLE 'users'  (
 );
 
 CREATE TABLE 'post_tag' (
-    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    'post_id' INTEGER NOT NULL, 
-    'tag_id' INTEGER NOT NULL,
-    FOREIGN KEY('post_id') REFERENCES 'posts'('id'),
-    FOREIGN KEY('tag_id') REFERENCES 'tags'('id')
+      'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+      'post_id' INTEGER NOT NULL, 
+      'tag_id' INTEGER NOT NULL,
+      FOREIGN KEY('post_id') REFERENCES 'posts'('id'),
+      FOREIGN KEY('tag_id') REFERENCES 'tags'('id')
 );
