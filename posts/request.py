@@ -1,6 +1,6 @@
-from sqlite3
+import sqlite3
 import json
-from models import posts
+from models import Post
 
 def create_post(new_post):
     with sqlite3.connect('../rare.db') as conn:
@@ -14,6 +14,6 @@ def create_post(new_post):
         """, (new_post['title'], new_post['content'], new_post['category_id'], new_post['header_img']))
 
         id = db_cursor.lastrowid
-        new_entry['id'] = id
+        new_post['id'] = id
       
     return json.dumps(new_post)

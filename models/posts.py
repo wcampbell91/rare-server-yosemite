@@ -8,4 +8,4 @@ class Post():
           self.content = content
           self.category_id = category_id
           self.header_img = header_img
-          self.publishDate = date.today()
+          # self.publish_date = date.today()
