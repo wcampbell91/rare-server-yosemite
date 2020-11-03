@@ -2,12 +2,12 @@ CREATE TABLE 'posts'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       `title`   TEXT NOT NULL,
       `content`   TEXT NOT NULL,
-      `category`  TEXT NOT NULL,
+      `category_id`  INTEGER NOT NULL,
       `header_img` TEXT NOT NULL,
       `publish_date` TEXT NOT NULL
 );
 
-CREATE TABLE 'catergories'  (
+CREATE TABLE 'catergory'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       `name`   TEXT NOT NULL
 );
@@ -36,9 +36,14 @@ CREATE TABLE 'users'  (
 );
 
 CREATE TABLE 'post_tag' (
-    'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    'post_id' INTEGER NOT NULL, 
-    'tag_id' INTEGER NOT NULL,
-    FOREIGN KEY('post_id') REFERENCES 'posts'('id'),
-    FOREIGN KEY('tag_id') REFERENCES 'tags'('id')
+      'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+      'post_id' INTEGER NOT NULL, 
+      'tag_id' INTEGER NOT NULL,
+      FOREIGN KEY('post_id') REFERENCES 'posts'('id'),
+      FOREIGN KEY('tag_id') REFERENCES 'tags'('id')
 );
+
+INSERT INTO `catergory` VALUES (NULL, 'TEST 1')
+INSERT INTO `catergory` VALUES(NULL, 'TEST 2')
+INSERT INTO `catergory` VALUES(NULL, 'TEST 3')
+INSERT INTO `catergory` VALUES(NULL, 'TEST 4')

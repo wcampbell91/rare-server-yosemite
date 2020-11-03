@@ -1,5 +1,6 @@
 import sqlite3
 import json
+from models import Category
 
 def get_all_categories():
     with sqlite3.connect("./rare.db") as conn:
@@ -9,16 +10,16 @@ def get_all_categories():
         db_cursor.execute("""
         SELECT
             a.id,
-            a.name,
-        FROM Categories a
+            a.name
+        FROM catergory a
         """)
+
+        categories = []
 
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-
-            category = Categories(row['id'], row['name]) 
+            category = Category(row['id'], row['name'])
             
-            categories.append(entry.__dict__)
-
+            categories.append(category.__dict__)
     return json.dumps(categories)
