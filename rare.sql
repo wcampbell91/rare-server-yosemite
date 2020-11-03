@@ -42,3 +42,8 @@ CREATE TABLE 'post_tag' (
       FOREIGN KEY('post_id') REFERENCES 'posts'('id'),
       FOREIGN KEY('tag_id') REFERENCES 'tags'('id')
 );
+
+INSERT INTO 'tags' VALUES(null, 'politics')
+INSERT INTO 'tags' VALUES(null, 'football')
+INSERT INTO 'tags' VALUES(null, 'indie')
+INSERT INTO 'tags' VALUES(null, 'folk')
