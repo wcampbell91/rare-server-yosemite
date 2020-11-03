@@ -1,4 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from tags import get_all_tags
 import json
 
 class HandleRequests(BaseHTTPRequestHandler):
