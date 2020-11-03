@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-from tags import get_all_tags, create_tag, delete_tag
+from tags import get_all_tags, create_tag, delete_tag, update_tag
 from categories import get_all_categories
 import json
 from posts import create_post
