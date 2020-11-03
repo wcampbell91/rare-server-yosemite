@@ -7,7 +7,7 @@ CREATE TABLE 'posts'  (
       `publish_date` TEXT NOT NULL
 );
 
-CREATE TABLE 'catergory'  (
+CREATE TABLE 'catergories'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       `name`   TEXT NOT NULL
 );
