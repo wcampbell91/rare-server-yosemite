@@ -60,3 +60,5 @@ INSERT INTO 'tags' VALUES(null, 'politics')
 INSERT INTO 'tags' VALUES(null, 'football')
 INSERT INTO 'tags' VALUES(null, 'indie')
 INSERT INTO 'tags' VALUES(null, 'folk')
+
+IF EXISTS (SELECT * FROM users WHERE email = ? AND password = ?) THEN SELECT 'true' ELSE SELECT 'false' 

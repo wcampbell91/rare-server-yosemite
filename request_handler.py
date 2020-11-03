@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-
+from models import ParsedUrl
 
 from tags import get_all_tags, create_tag, delete_tag, update_tag
 from categories import get_all_categories, create_category
@@ -22,35 +22,36 @@ class HandleRequests(BaseHTTPRequestHandler):
         response = {}
 
         parsed = self.parse_url(self.path)
-
-        if len(parsed) == 2:
-            ( resource, id ) = parsed
-            
-            if resource == "categories":
-                if id is not None: 
-                    response = get_single_category(id)
-                else:
-                    response = get_all_categories()
-            elif resource == "comments":
-                if id is not None:
-                    response = get_single_comment(id)
-                else:
-                    response = get_all_comments()
-            elif resource == "tags":
-                if id is not None:
-                    response = get_single_tag(id)
-                else:
-                    response = get_all_tags()
-            elif resource == "posts":
-                if id is not None:
-                    response = get_single_post(id)
-                else:
-                    response = get_all_posts()
         
-        elif len(parsed) == 3:
-            (resource, key, value) = parsed
-            pass #fill this in later
+        if parsed.resource == "categories":
+            if parsed.id is not None: 
+                response = get_single_category(id)
+            else:
+                response = get_all_categories()
+        elif parsed.resource == "comments":
+            if parsed.id is not None:
+                response = get_single_comment(id)
+            else:
+                response = get_all_comments()
+        elif parsed.resource == "tags":
+            if parsed.id is not None:
+                response = get_single_tag(id)
+            else:
+                response = get_all_tags()
+        elif parsed.resource == "posts":
+            if parsed.id is not None:
+                response = get_single_post(id)
+            else:
+                response = get_all_posts()
     
+        elif parsed.resource == "login":
+            content_len = int(self.headers.get('content-length', 0))
+            post_body = self.rfile.read(content_len)
+            post_body = json.loads(post_body)
+
+            validate_user_login(post_body)
+                
+                
         self.wfile.write(response.encode())
 
     def do_POST(self):
@@ -60,17 +61,17 @@ class HandleRequests(BaseHTTPRequestHandler):
 
         post_body = json.loads(post_body)
 
-        (resource, id) = self.parse_url(self.path)
+        parsed = self.parse_url(self.path)
         
         new_object = None
 
-        if resource == "categories":
+        if parsed.resource == "categories":
             new_object = create_category(post_body)
-        elif resource == "comments":
+        elif parsed.resource == "comments":
             new_object = create_comment(post_body)
-        elif resource == "posts":
+        elif parsed.resource == "posts":
             new_object = create_post(post_body)
-        elif resource == "tags":
+        elif parsed.resource == "tags":
             new_object = create_tag(post_body)
         
         self.wfile.write(f"{new_object}".encode())
@@ -78,15 +79,15 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_DELETE(self):
         self._set_headers(204)
 
-        (resource, id) = self.parse_url(self.path)
+        parsed = self.parse_url(self.path)
 
-        if resource == "categories":
+        if parsed.resource == "categories":
             delete_category(id)
-        elif resource == "comments":
+        elif parsed.resource == "comments":
             delete_comments(id)
-        elif resource == "posts":
+        elif parsed.resource == "posts":
             delete_post(id)
-        elif resource == "tags":
+        elif parsed.resource == "tags":
             delete_tag(id)
 
         self.wfile.write("".encode())
@@ -97,17 +98,17 @@ class HandleRequests(BaseHTTPRequestHandler):
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
 
-        (resource, id) = self.parse_url(self.path)
+        parsed = self.parse_url(self.path)
 
         success = False
         
-        if resource == "categories":
+        if parsed.resource == "categories":
             success = update_category(id, post_body)
-        elif resource == "comments":
+        elif parsed.resource == "comments":
             success = update_comment(id, post_body)
-        elif resource == "posts":
+        elif parsed.resource == "posts":
             success = update_post(id, post_body)
-        elif resource == "tags":
+        elif parsed.resource == "tags":
             success = update_tag(id, post_body)
         
         if success:
@@ -120,27 +121,45 @@ class HandleRequests(BaseHTTPRequestHandler):
     def parse_url(self, path):
         path_params = path.split("/")
         resource = path_params[1]
+        query = {}
+        id = ""
+        id_int = None
+        try:
+            id = path_params[2]
+        except IndexError:
+            pass
 
         if "?" in resource:
             param = resource.split("?")[1]
             resource = resource.split("?")[0]
-            pair = param.split("=")
-            key = pair[0]
-            value = pair[1]
-
-            return ( resource, key, value )
+            query = self.parse_query(param)
+        
+        if "?" in id:
+            param = id.split("?")[1]
+            id_int = int(id.split("?")[0])
+            query = self.parse_query(param)
 
         else:
-            id = None
-
             try:
-                id = int(path_params[2])
+                id_int = int(id)
             except IndexError:
                 pass
             except ValueError:
                 pass
             
-            return (resource, id)
+        return ParsedUrl(resource, id_int, query)
+
+    def parse_query(self, query_string):
+        pairs = query_string.split("&")
+        query = {}
+
+        for pair in pairs:
+            (key, value) = tuple(pair.split('='))
+            if key in query:
+                query[key].append(value)
+            else:
+                query[key] = [value]
+        return query
 
     def do_OPTIONS(self):
         self.send_response(200)
