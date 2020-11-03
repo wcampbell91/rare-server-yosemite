@@ -11,7 +11,7 @@ def get_all_categories():
         SELECT
             a.id,
             a.name
-        FROM catergory a
+        FROM categories a
         """)
 
         categories = []

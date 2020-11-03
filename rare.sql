@@ -7,7 +7,7 @@ CREATE TABLE 'posts'  (
       `publish_date` TEXT NOT NULL
 );
 
-CREATE TABLE 'catergory'  (
+CREATE TABLE 'categories'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       `name`   TEXT NOT NULL
 );
@@ -43,7 +43,11 @@ CREATE TABLE 'post_tag' (
       FOREIGN KEY('tag_id') REFERENCES 'tags'('id')
 );
 
-INSERT INTO `catergory` VALUES (NULL, 'TEST 1')
-INSERT INTO `catergory` VALUES(NULL, 'TEST 2')
-INSERT INTO `catergory` VALUES(NULL, 'TEST 3')
-INSERT INTO `catergory` VALUES(NULL, 'TEST 4')
+DROP TABLE 'catergory';
+
+INSERT INTO `categories` VALUES (NULL, 'TEST 1')
+INSERT INTO `categories` VALUES(NULL, 'TEST 2')
+INSERT INTO `categories` VALUES(NULL, 'TEST 3')
+INSERT INTO `categories` VALUES(NULL, 'TEST 4')
+
+
