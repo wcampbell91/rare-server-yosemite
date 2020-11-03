@@ -9,12 +9,12 @@ CREATE TABLE 'posts'  (
 
 CREATE TABLE 'catergory'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-      `name`   TEXT NOT NULL,
+      `name`   TEXT NOT NULL
 );
 
 CREATE TABLE 'tags'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-      `name`   TEXT NOT NULL
+      `name`   TEXT NOT NULL,
 );
 
 CREATE TABLE 'comments'  (
