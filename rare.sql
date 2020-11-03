@@ -1,10 +1,16 @@
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS post_tag;
+
 CREATE TABLE 'posts'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       `title`   TEXT NOT NULL,
       `content`   TEXT NOT NULL,
       `category_id`  INTEGER NOT NULL,
-      `header_img` TEXT NOT NULL,
-      `publish_date` TEXT NOT NULL
+      `header_img` TEXT NOT NULL
 );
 
 CREATE TABLE 'categories'  (
@@ -50,4 +56,7 @@ INSERT INTO `categories` VALUES(NULL, 'TEST 2')
 INSERT INTO `categories` VALUES(NULL, 'TEST 3')
 INSERT INTO `categories` VALUES(NULL, 'TEST 4')
 
-
+INSERT INTO 'tags' VALUES(null, 'politics')
+INSERT INTO 'tags' VALUES(null, 'football')
+INSERT INTO 'tags' VALUES(null, 'indie')
+INSERT INTO 'tags' VALUES(null, 'folk')

@@ -1,7 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from tags import get_all_tags
+
+from tags import get_all_tags, create_tag
 from categories import get_all_categories
 import json
+from posts import create_post
 
 class HandleRequests(BaseHTTPRequestHandler):
 
@@ -51,7 +53,7 @@ class HandleRequests(BaseHTTPRequestHandler):
 
     def do_POST(self):
         self._set_headers(201)
-        content_len = int(self.headers.get('content-lenght', 0))
+        content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
 
         post_body = json.loads(post_body)
