@@ -68,3 +68,24 @@ def get_single_post(id):
             post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'])
             posts.append(post.__dict__)
     return json.dumps(posts)
+
+def update_post(id, new_post):
+    with sqlite3.connect("./rare.db") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE posts
+            SET
+            title = ?,
+            content = ?,
+            category_id = ?,
+            header_img = ?
+        WHERE id = ?
+        """, (new_post['title'], new_post['content'], new_post['category_id'], new_post['header_img'], id ))
+
+    rows_affected = db_cursor.rowcount
+
+    if rows_affected == 0:
+        return False
+    else:
+        return True

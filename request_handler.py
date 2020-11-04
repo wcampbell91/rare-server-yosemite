@@ -4,7 +4,7 @@ from categories import get_all_categories, create_category, delete_category, upd
 from tags import get_all_tags, create_tag, delete_tag, update_tag
 
 import json
-from posts import create_post, get_all_posts, get_single_post
+from posts import create_post, get_all_posts, get_single_post, update_post
 
 class HandleRequests(BaseHTTPRequestHandler):
 
