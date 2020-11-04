@@ -25,9 +25,6 @@ class HandleRequests(BaseHTTPRequestHandler):
         parsed = self.parse_url(self.path)
         
         if parsed.resource == "categories":
-            if parsed.id is not None: 
-                response = get_single_category(parsed.id)
-            else:
                 response = get_all_categories()
         elif parsed.resource == "comments":
             if parsed.id is not None:
@@ -35,9 +32,6 @@ class HandleRequests(BaseHTTPRequestHandler):
             else:
                 response = get_all_comments()
         elif parsed.resource == "tags":
-            if parsed.id is not None:
-                response = get_single_tag(parsed.id)
-            else:
                 response = get_all_tags()
         elif parsed.resource == "posts":
             if parsed.id is not None:
