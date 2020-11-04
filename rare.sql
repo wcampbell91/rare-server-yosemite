@@ -54,12 +54,16 @@ CREATE TABLE 'post_tag' (
       FOREIGN KEY('tag_id') REFERENCES 'tags'('id')
 );
 
+ALTER TABLE comments
+ADD post_id VARCHAR(65535);
 
 INSERT INTO `categories` VALUES (NULL, 'TEST 1');
 INSERT INTO `categories` VALUES(NULL, 'TEST 2');
 INSERT INTO `categories` VALUES(NULL, 'TEST 3');
 INSERT INTO `categories` VALUES(NULL, 'TEST 4');
 
+
+INSERT INTO 'comments' VALUES(NULL, 'football', 'here is a cool comment on football', 'idkbro', 11/17/2020, 1)
 
 INSERT INTO 'tags' VALUES(null, 'politics')
 INSERT INTO 'tags' VALUES(null, 'football')

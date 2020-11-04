@@ -4,10 +4,12 @@ from models import ParsedUrl
 
 from categories import get_all_categories, create_category, delete_category, update_category
 from tags import get_all_tags, create_tag, delete_tag, update_tag
+
 from auth import validate_user_login
 
+from comments import get_all_comments
 import json
-from posts import create_post, get_all_posts, get_single_post
+from posts import create_post, get_all_posts, get_single_post, update_post, delete_post
 
 class HandleRequests(BaseHTTPRequestHandler):
 
@@ -26,9 +28,6 @@ class HandleRequests(BaseHTTPRequestHandler):
         parsed = self.parse_url(self.path)
         
         if parsed.resource == "categories":
-            if parsed.id is not None: 
-                response = get_single_category(parsed.id)
-            else:
                 response = get_all_categories()
         elif parsed.resource == "comments":
             if parsed.id is not None:
@@ -36,9 +35,6 @@ class HandleRequests(BaseHTTPRequestHandler):
             else:
                 response = get_all_comments()
         elif parsed.resource == "tags":
-            if parsed.id is not None:
-                response = get_single_tag(parsed.id)
-            else:
                 response = get_all_tags()
         elif parsed.resource == "posts":
             if parsed.id is not None:
