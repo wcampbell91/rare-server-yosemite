@@ -25,22 +25,22 @@ class HandleRequests(BaseHTTPRequestHandler):
         
         if parsed.resource == "categories":
             if parsed.id is not None: 
-                response = get_single_category(id)
+                response = get_single_category(parsed.id)
             else:
                 response = get_all_categories()
         elif parsed.resource == "comments":
             if parsed.id is not None:
-                response = get_single_comment(id)
+                response = get_single_comment(parsed.id)
             else:
                 response = get_all_comments()
         elif parsed.resource == "tags":
             if parsed.id is not None:
-                response = get_single_tag(id)
+                response = get_single_tag(parsed.id)
             else:
                 response = get_all_tags()
         elif parsed.resource == "posts":
             if parsed.id is not None:
-                response = get_single_post(id)
+                response = get_single_post(parsed.id)
             else:
                 response = get_all_posts()
     
@@ -82,13 +82,13 @@ class HandleRequests(BaseHTTPRequestHandler):
         parsed = self.parse_url(self.path)
 
         if parsed.resource == "categories":
-            delete_category(id)
+            delete_category(parsed.id)
         elif parsed.resource == "comments":
-            delete_comments(id)
+            delete_comments(parsed.id)
         elif parsed.resource == "posts":
-            delete_post(id)
+            delete_post(parsed.id)
         elif parsed.resource == "tags":
-            delete_tag(id)
+            delete_tag(parsed.id)
 
         self.wfile.write("".encode())
     
@@ -103,13 +103,13 @@ class HandleRequests(BaseHTTPRequestHandler):
         success = False
         
         if parsed.resource == "categories":
-            success = update_category(id, post_body)
+            success = update_category(parsed.id, post_body)
         elif parsed.resource == "comments":
-            success = update_comment(id, post_body)
+            success = update_comment(parsed.id, post_body)
         elif parsed.resource == "posts":
-            success = update_post(id, post_body)
+            success = update_post(parsed.id, post_body)
         elif parsed.resource == "tags":
-            success = update_tag(id, post_body)
+            success = update_tag(parsed.id, post_body)
         
         if success:
             self._set_headers(204)
