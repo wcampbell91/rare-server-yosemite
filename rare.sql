@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS post_tag;
@@ -20,7 +20,7 @@ CREATE TABLE 'categories'  (
 
 CREATE TABLE 'tags'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-      `name`   TEXT NOT NULL,
+      `name`   TEXT NOT NULL
 );
 
 CREATE TABLE 'comments'  (
@@ -49,12 +49,12 @@ CREATE TABLE 'post_tag' (
       FOREIGN KEY('tag_id') REFERENCES 'tags'('id')
 );
 
-DROP TABLE 'catergory';
 
-INSERT INTO `categories` VALUES (NULL, 'TEST 1')
-INSERT INTO `categories` VALUES(NULL, 'TEST 2')
-INSERT INTO `categories` VALUES(NULL, 'TEST 3')
-INSERT INTO `categories` VALUES(NULL, 'TEST 4')
+INSERT INTO `categories` VALUES (NULL, 'TEST 1');
+INSERT INTO `categories` VALUES(NULL, 'TEST 2');
+INSERT INTO `categories` VALUES(NULL, 'TEST 3');
+INSERT INTO `categories` VALUES(NULL, 'TEST 4');
+
 
 INSERT INTO 'tags' VALUES(null, 'politics')
 INSERT INTO 'tags' VALUES(null, 'football')
@@ -62,3 +62,4 @@ INSERT INTO 'tags' VALUES(null, 'indie')
 INSERT INTO 'tags' VALUES(null, 'folk')
 
 IF EXISTS (SELECT * FROM users WHERE email = ? AND password = ?) THEN SELECT 'true' ELSE SELECT 'false' 
+

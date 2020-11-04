@@ -41,3 +41,30 @@ def create_category(new_category):
         new_category['id'] = id
 
     return json.dumps(new_category)
+
+def delete_category(id):
+    with sqlite3.connect("./rare.db") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        DELETE FROM categories
+        WHERE id = ?
+        """, (id, ))
+
+def update_category(id, new_category):
+    with sqlite3.connect("./rare.db") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        UPDATE Categories
+            SET
+            Name = ?
+        WHERE id = ?
+        """, (new_category['name'], id ))
+
+    rows_affected = db_cursor.rowcount
+
+    if rows_affected == 0:
+        return False
+    else:
+        return True
