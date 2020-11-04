@@ -27,13 +27,15 @@ def get_all_tags():
 def create_tag(new_tag):
     with sqlite3.connect('./rare.db') as conn:
         db_cursor = conn.cursor()
+        cmd = """
+            INSERT INTO tags
+                (name)
+            VALUES
+                (?)
+            """
+        params = (new_tag['name'], )
 
-        db_cursor.execute("""
-        INSERT INTO tags
-            (name)
-        VALUES
-            (?)
-        """, (new_tag['name'], ))
+        db_cursor.execute(cmd, params)
 
         id = db_cursor.lastrowid
 
@@ -44,11 +46,14 @@ def create_tag(new_tag):
 def delete_tag(id):
     with sqlite3.connect('./rare.db') as conn:
         db_cursor = conn.cursor()
-
-        db_cursor.execute("""
+        cmd = """
         DELETE FROM tags
         WHERE id = ?
-        """, (id, ))
+        """
+
+        params = (id, )
+
+        db_cursor.execute(cmd, params)
 
 def update_tag(id, new_tag):
     with sqlite3.connect('./rare.db') as conn:
