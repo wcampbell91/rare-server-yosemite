@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from categories import get_all_categories, create_category, delete_category, update_category
 from tags import get_all_tags, create_tag, delete_tag, update_tag
-
+from comments import get_all_comments
 import json
 from posts import create_post, get_all_posts, get_single_post
 
