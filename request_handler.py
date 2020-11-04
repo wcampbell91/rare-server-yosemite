@@ -4,7 +4,7 @@ from models import ParsedUrl
 
 from categories import get_all_categories, create_category, delete_category, update_category
 from tags import get_all_tags, create_tag, delete_tag, update_tag
-from comments import get_all_comments
+from comments import get_all_comments, get_all_comments_by_post_id, get_single_comment
 import json
 from posts import create_post, get_all_posts, get_single_post, update_post
 
@@ -29,8 +29,11 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif parsed.resource == "comments":
             if parsed.id is not None:
                 response = get_single_comment(parsed.id)
+            elif "post_id" in parsed.query:
+                response = get_all_comments_by_post_id(parsed.query["post_id"][0]) 
             else:
                 response = get_all_comments()
+            
         elif parsed.resource == "tags":
                 response = get_all_tags()
         elif parsed.resource == "posts":
@@ -38,14 +41,17 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_single_post(parsed.id)
             else:
                 response = get_all_posts()
-    
+
+        
         elif parsed.resource == "login":
             content_len = int(self.headers.get('content-length', 0))
             post_body = self.rfile.read(content_len)
             post_body = json.loads(post_body)
 
             validate_user_login(post_body)
-                
+        
+
+               
                 
         self.wfile.write(response.encode())
 

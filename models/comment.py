@@ -1,4 +1,4 @@
-from datetime import date
+import datetime
 
 class Comment():
      
@@ -8,4 +8,4 @@ class Comment():
           self.content = content
           self.author = author
           self.post_id = post_id
-          # self.creation_date = date.today()
+          # self.creation_date = datetime.datetime.now()
