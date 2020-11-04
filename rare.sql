@@ -41,6 +41,11 @@ CREATE TABLE 'users'  (
       `user_type` TEXT NOT NULL
 );
 
+INSERT INTO 'users' VALUES(null, 'Butt Chugg', '23423', 'coolGuy123', 'chugg.butt@email.com', '223423', 'admin', 'password')
+
+ALTER TABLE 'users'
+ADD 'password' TEXT
+
 CREATE TABLE 'post_tag' (
       'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       'post_id' INTEGER NOT NULL, 
@@ -62,4 +67,3 @@ INSERT INTO 'tags' VALUES(null, 'indie')
 INSERT INTO 'tags' VALUES(null, 'folk')
 
 IF EXISTS (SELECT * FROM users WHERE email = ? AND password = ?) THEN SELECT 'true' ELSE SELECT 'false' 
-
