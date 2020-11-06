@@ -11,7 +11,8 @@ CREATE TABLE 'posts'  (
       `content`   TEXT NOT NULL,
       `category_id`  INTEGER NOT NULL,
       `header_img` TEXT NOT NULL,
-      `user_id` TEXT NOT NULL
+      `user_id` TEXT NOT NULL,
+      `publish_date` TEXT NOT NULL
 );
 
 CREATE TABLE 'categories'  (

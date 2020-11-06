@@ -59,7 +59,8 @@ def get_posts_by_user(user_id):
             p.content,
             p.category_id,
             p.header_img,
-            p.user_id
+            p.user_id,
+            p.publish_date
         FROM posts p
         WHERE p.user_id = ?
         """, ( user_id, ))
@@ -68,7 +69,7 @@ def get_posts_by_user(user_id):
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'],)
+            post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'], row['publish_date'])
             posts.append(post.__dict__)
     return json.dumps(posts)
 
@@ -84,7 +85,8 @@ def get_single_post(id):
           p.content,
           p.category_id,
           p.header_img,
-          p.user_id
+          p.user_id,
+          p.publish_date
         FROM posts p
         WHERE p.id = ?
         """, (id, ))
@@ -94,7 +96,7 @@ def get_single_post(id):
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'])
+            post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'], row['publish_date'])
             posts.append(post.__dict__)
     return json.dumps(posts)
 
