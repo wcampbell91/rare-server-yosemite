@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from models import Tag
+from models import Tag, Post
 
 def get_all_tags():
     with sqlite3.connect("./rare.db") as conn:

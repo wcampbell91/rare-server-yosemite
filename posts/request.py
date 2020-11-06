@@ -15,8 +15,18 @@ def create_post(new_post):
         """, (new_post['title'], new_post['content'], new_post['category_id'], new_post['header_img'], new_post['user_id'], datetime.now()))
 
         id = db_cursor.lastrowid
+
+        for tag in new_post['tags']:
+            cmd = """INSERT INTO post_tag
+                        (post_id, tag_id)
+                    VALUES 
+                        (?, ?)"""
+            params = (id, tag)
+
+            db_cursor.execute(cmd, params)
+
         new_post['id'] = id
-      
+
     return json.dumps(new_post)
 
 
@@ -42,8 +52,29 @@ def get_all_posts():
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-          post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'], row['publish_date'])
-          posts.append(post.__dict__)
+            post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'], row['publish_date'])
+
+            cmd = """SELECT t.id, t.name FROM post_tag pt
+                    JOIN tags t ON t.id = pt.tag_id
+                    WHERE pt.post_id = ?
+                    """
+            params = (post.id, )
+
+            db_cursor.execute(cmd, params)
+
+            tagset = db_cursor.fetchall()
+
+            tags = []
+
+            for tag in tagset:
+                tags.append({
+                    'id': tag['id'],
+                    'name': tag['name'],
+                })
+
+            post.tags = tags
+
+            posts.append(post.__dict__)
 
     return json.dumps(posts)
 
