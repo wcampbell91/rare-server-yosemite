@@ -10,8 +10,20 @@ CREATE TABLE 'posts'  (
       `title`   TEXT NOT NULL,
       `content`   TEXT NOT NULL,
       `category_id`  INTEGER NOT NULL,
-      `header_img` TEXT NOT NULL
+      `header_img` TEXT NOT NULL,
+      'user_id' INTEGER NOT NULL,
+      'publish_date' INTEGER NOT NULL
 );
+
+DROP TABLE 'posts'
+
+ALTER TABLE 'posts' DROP COLUMN 'publish_date'
+
+ALTER TABLE 'posts'
+ADD user_id INTEGER
+
+ALTER TABLE 'posts' 
+RENAME COLUMN 'category' TO 'category_id'
 
 CREATE TABLE 'categories'  (
       `id`    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -57,10 +69,16 @@ CREATE TABLE 'post_tag' (
 ALTER TABLE comments
 ADD post_id VARCHAR(65535);
 
+INSERT INTO 'posts' VALUES(NULL, 'test 1', 'this is a test', 1, 'alkjadhflkaj' )
+
 INSERT INTO `categories` VALUES (NULL, 'TEST 1');
 INSERT INTO `categories` VALUES(NULL, 'TEST 2');
 INSERT INTO `categories` VALUES(NULL, 'TEST 3');
 INSERT INTO `categories` VALUES(NULL, 'TEST 4');
+
+INSERT INTO 'posts' VALUES(NULL, 'black clover', 'wizards', 1, '12345', 1, 0);
+INSERT INTO 'posts' VALUES(NULL, 'fire force', 'fire soldiers', 2, '678910', 2, 0);
+INSERT INTO 'posts' VALUES(NULL, 'dororo', 'samurai', 2, '111213', 2, 0);
 
 
 INSERT INTO 'comments' VALUES(NULL, 'football', 'here is a cool comment on football', 'idkbro', 11/17/2020, 1)
