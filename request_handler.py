@@ -8,7 +8,7 @@ from users import get_single_user, get_all_users
 from comments import get_all_comments, get_all_comments_by_post_id, get_single_comment
 from auth import validate_user_login 
 import json
-from posts import create_post, get_all_posts, get_single_post, update_post, delete_post
+from posts import create_post, get_all_posts, get_single_post, update_post, delete_post, get_posts_by_user
 
 class HandleRequests(BaseHTTPRequestHandler):
 
@@ -41,6 +41,8 @@ class HandleRequests(BaseHTTPRequestHandler):
         elif parsed.resource == "posts":
             if parsed.id is not None:
                 response = get_single_post(parsed.id)
+            elif "user_id" in parsed.query:
+                response = get_posts_by_user(parsed.query["user_id"][0])
             else:
                 response = get_all_posts()
         elif parsed.resource == "users":
