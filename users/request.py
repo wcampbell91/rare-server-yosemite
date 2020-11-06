@@ -2,20 +2,35 @@ import sqlite3
 import json
 from models import User
 
-def validate_user_login(user):
+def get_all_users():
     with sqlite3.connect('./rare.db') as conn:
+        conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
 
-        cmd = """SELECT EXISTS ( SELECT * FROM users WHERE email = ? AND password = ?)"""
-        params = (user['email'], user['password'], )
+        cmd = """
+        SELECT 
+            u.id,
+            u.name,
+            u.avatar,
+            u.display_name,
+            u.email,
+            u.creation_date,
+            u.user_type,
+            u.password
+        FROM users u
+        """
+        db_cursor.execute(cmd)
+        
+        users = []
 
-        db_cursor.execute(cmd, params)
-        response = db_cursor.fetchone()
+        dataset = db_cursor.fetchall()
 
-        if response[0] == 1:
-            return json.dumps({"response": True})
-        else:
-            return json.dumps({"response": False})
+        for row in dataset:
+            user = User(row['id'], row['name'], row['avatar'], row['display_name'], row['email'], row['creation_date'], row['user_type'], row['password'])
+            users.append(user.__dict__)
+
+        return json.dumps(users)
+
 
 def get_single_user(id):
     with sqlite3.connect('./rare.db') as conn:
@@ -43,4 +58,4 @@ def get_single_user(id):
 
         user = User(data['id'], data['name'], data['avatar'], data['display_name'], data['email'], data['creation_date'], data['user_type'], data['password'])
 
-        return json.dumps(user)
+        return json.dumps(user.__dict__)
