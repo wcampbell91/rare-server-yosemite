@@ -5,7 +5,7 @@ from models import ParsedUrl
 from categories import get_all_categories, create_category, delete_category, update_category
 from tags import get_all_tags, create_tag, delete_tag, update_tag
 
-from comments import get_all_comments, get_all_comments_by_post_id, get_single_comment, create_comment
+from comments import get_all_comments, get_all_comments_by_post_id, get_single_comment, create_comment, delete_comments
 from auth import validate_user_login
 import json
 from posts import create_post, get_all_posts, get_single_post, update_post, delete_post

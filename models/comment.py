@@ -1,7 +1,7 @@
 
 class Comment():
      
-      def __init__(self, id, subject, content, author, post_id, creation_date):
+      def __init__(self, id, subject, content, author,creation_date, post_id ):
           self.id = id
           self.subject = subject
           self.content = content
