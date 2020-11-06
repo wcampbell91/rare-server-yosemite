@@ -10,7 +10,8 @@ CREATE TABLE 'posts'  (
       `title`   TEXT NOT NULL,
       `content`   TEXT NOT NULL,
       `category_id`  INTEGER NOT NULL,
-      `header_img` TEXT NOT NULL
+      `header_img` TEXT NOT NULL,
+      `user_id` TEXT NOT NULL
 );
 
 CREATE TABLE 'categories'  (
@@ -41,10 +42,13 @@ CREATE TABLE 'users'  (
       `user_type` TEXT NOT NULL
 );
 
-INSERT INTO 'users' VALUES(null, 'Butt Chugg', '23423', 'coolGuy123', 'chugg.butt@email.com', '223423', 'admin', 'password')
+-- ALTER TABLE 'users'
+-- ADD 'password' TEXT
 
-ALTER TABLE 'users'
-ADD 'password' TEXT
+-- INSERT INTO 'users' VALUES(null, 'Butt Chugg', '23423', 'coolGuy123', 'chugg.butt@email.com', '223423', 'admin', 'password');
+
+-- ALTER TABLE 'users'
+-- ADD 'password' TEXT
 
 CREATE TABLE 'post_tag' (
       'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -57,19 +61,23 @@ CREATE TABLE 'post_tag' (
 ALTER TABLE comments
 ADD post_id VARCHAR(65535);
 
+INSERT INTO 'posts' VALUES(NULL, 'black clover', 'wizards', 1, '12345', 1);
+INSERT INTO 'posts' VALUES(NULL, 'fire force', 'fire soldiers', 2, '678910', 2);
+INSERT INTO 'posts' VALUES(NULL, 'dororo', 'samurai', 2, '111213', 2);
+
 INSERT INTO `categories` VALUES (NULL, 'TEST 1');
 INSERT INTO `categories` VALUES(NULL, 'TEST 2');
 INSERT INTO `categories` VALUES(NULL, 'TEST 3');
 INSERT INTO `categories` VALUES(NULL, 'TEST 4');
 
 
-INSERT INTO 'comments' VALUES(NULL, 'football', 'here is a cool comment on football', 'idkbro', 11/17/2020, 1)
-INSERT INTO 'comments' VALUES(NULL, 'indie', 'here is a cool comment on football', 'bro', 11/17/2020, 2)
-INSERT INTO 'comments' VALUES(NULL, 'folk', 'here is a cool comment on football', 'idk', 11/17/2020, 3)
+INSERT INTO 'comments' VALUES(NULL, 'football', 'here is a cool comment on football', 'idkbro', 11/17/2020, 1);
+INSERT INTO 'comments' VALUES(NULL, 'indie', 'here is a cool comment on football', 'bro', 11/17/2020, 2);
+INSERT INTO 'comments' VALUES(NULL, 'folk', 'here is a cool comment on football', 'idk', 11/17/2020, 3);
 
-INSERT INTO 'tags' VALUES(null, 'politics')
-INSERT INTO 'tags' VALUES(null, 'football')
-INSERT INTO 'tags' VALUES(null, 'indie')
-INSERT INTO 'tags' VALUES(null, 'folk')
+INSERT INTO 'tags' VALUES(null, 'politics');
+INSERT INTO 'tags' VALUES(null, 'football');
+INSERT INTO 'tags' VALUES(null, 'indie');
+INSERT INTO 'tags' VALUES(null, 'folk');
 
 IF EXISTS (SELECT * FROM users WHERE email = ? AND password = ?) THEN SELECT 'true' ELSE SELECT 'false' 

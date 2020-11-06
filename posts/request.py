@@ -30,7 +30,8 @@ def get_all_posts():
           p.title,
           p.content,
           p.category_id,
-          p.header_img
+          p.header_img,
+          p.user_id
         FROM posts p
         """)
 
@@ -39,9 +40,34 @@ def get_all_posts():
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-          post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'])
+          post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'])
           posts.append(post.__dict__)
 
+    return json.dumps(posts)
+
+def get_posts_by_user(user_id):
+    with sqlite3.connect("./rare.db") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            p.id,
+            p.title,
+            p.content,
+            p.category_id,
+            p.header_img,
+            p.user_id
+        FROM posts p
+        WHERE p.user_id = ?
+        """, ( user_id, ))
+
+        posts = []
+        dataset = db_cursor.fetchall()
+
+        for row in dataset:
+            post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'],)
+            posts.append(post.__dict__)
     return json.dumps(posts)
 
 def get_single_post(id):
@@ -55,7 +81,8 @@ def get_single_post(id):
           p.title,
           p.content,
           p.category_id,
-          p.header_img
+          p.header_img,
+          p.user_id
         FROM posts p
         WHERE p.id = ?
         """, (id, ))
@@ -65,7 +92,7 @@ def get_single_post(id):
         dataset = db_cursor.fetchall()
 
         for row in dataset:
-            post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'])
+            post = Post(row['id'], row['title'], row['content'], row['category_id'], row['header_img'], row['user_id'])
             posts.append(post.__dict__)
     return json.dumps(posts)
 
