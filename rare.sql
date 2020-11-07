@@ -86,9 +86,11 @@ INSERT INTO 'posts' VALUES(NULL, 'fire force', 'fire soldiers', 2, '678910', 2, 
 INSERT INTO 'posts' VALUES(NULL, 'dororo', 'samurai', 2, '111213', 2, 0);
 
 
-INSERT INTO 'comments' VALUES(NULL, 'football', 'here is a cool comment on football', 'idkbro', 11/17/2020, 1);
-INSERT INTO 'comments' VALUES(NULL, 'indie', 'here is a cool comment on football', 'bro', 11/17/2020, 2);
-INSERT INTO 'comments' VALUES(NULL, 'folk', 'here is a cool comment on football', 'idk', 11/17/2020, 3);
+INSERT INTO 'comments' VALUES(NULL, 'footballssss', 'here is a cool comment on football', 'idkbro', 11/17/2020, 1)
+INSERT INTO 'comments' VALUES(NULL, 'indie', 'here is a cool comment on football', 'bro', 11/17/2020, 2)
+INSERT INTO 'comments' VALUES(NULL, 'folk', 'here is a cool comment on football', 'idk', 11/17/2020, 3)
+DELETE FROM comments WHERE id='5';
+
 
 INSERT INTO 'tags' VALUES(null, 'politics');
 INSERT INTO 'tags' VALUES(null, 'football');
