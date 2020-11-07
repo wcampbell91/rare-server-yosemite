@@ -52,14 +52,6 @@ class HandleRequests(BaseHTTPRequestHandler):
             else:
                 response = get_all_users()
 
-        
-        elif parsed.resource == "login":
-            content_len = int(self.headers.get('content-length', 0))
-            post_body = self.rfile.read(content_len)
-            post_body = json.loads(post_body)
-
-            response = validate_user_login(post_body)
-
                 
         self.wfile.write(response.encode())
 
@@ -87,7 +79,10 @@ class HandleRequests(BaseHTTPRequestHandler):
             new_object = create_post_tag(post_body)
 
         elif parsed.resource == "users":
-            new_user = create_user(post_body)
+            new_object = create_user(post_body)
+
+        elif parsed.resource == "login":
+            new_object = validate_user_login(post_body)
 
         
         self.wfile.write(f"{new_object}".encode())
