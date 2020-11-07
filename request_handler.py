@@ -9,6 +9,7 @@ from comments import get_all_comments, get_all_comments_by_post_id, get_single_c
 from auth import validate_user_login 
 import json
 from posts import create_post, get_all_posts, get_single_post, update_post, delete_post, get_posts_by_user
+from post_tag import create_post_tag
 
 class HandleRequests(BaseHTTPRequestHandler):
 
@@ -81,8 +82,13 @@ class HandleRequests(BaseHTTPRequestHandler):
             new_object = create_post(post_body)
         elif parsed.resource == "tags":
             new_object = create_tag(post_body)
+
+        elif parsed.resource == "post_tag":
+            new_object = create_post_tag(post_body)
+
         elif parsed.resource == "users":
             new_user = create_user(post_body)
+
         
         self.wfile.write(f"{new_object}".encode())
 
