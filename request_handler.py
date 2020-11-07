@@ -4,7 +4,7 @@ from models import ParsedUrl
 
 from categories import get_all_categories, create_category, delete_category, update_category
 from tags import get_all_tags, create_tag, delete_tag, update_tag
-from users import get_single_user, get_all_users
+from users import get_single_user, get_all_users, create_user
 from comments import get_all_comments, get_all_comments_by_post_id, get_single_comment, create_comment, delete_comments, update_comment
 from auth import validate_user_login 
 import json
@@ -81,6 +81,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             new_object = create_post(post_body)
         elif parsed.resource == "tags":
             new_object = create_tag(post_body)
+        elif parsed.resource == "users":
+            new_user = create_user(post_body)
         
         self.wfile.write(f"{new_object}".encode())
 
