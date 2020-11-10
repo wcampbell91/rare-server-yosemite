@@ -12,6 +12,7 @@ def get_all_categories():
             a.id,
             a.name
         FROM categories a
+        ORDER BY name ASC;
         """)
 
         categories = []
