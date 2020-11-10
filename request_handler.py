@@ -3,7 +3,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from models import ParsedUrl
 
 from categories import get_all_categories, create_category, delete_category, update_category
-from tags import get_all_tags, create_tag, delete_tag, update_tag
+from tags import get_all_tags, create_tag, delete_tag, update_tag, get_single_tag
 from users import get_single_user, get_all_users, create_user
 from comments import get_all_comments, get_all_comments_by_post_id, get_single_comment, create_comment, delete_comments, update_comment
 from auth import validate_user_login 
@@ -38,6 +38,9 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_all_comments()
 
         elif parsed.resource == "tags":
+            if parsed.id is not None: 
+                response = get_single_tag(parsed.id)
+            else:
                 response = get_all_tags()
         elif parsed.resource == "posts":
             if parsed.id is not None:

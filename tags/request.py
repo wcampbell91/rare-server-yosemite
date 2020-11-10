@@ -26,6 +26,28 @@ def get_all_tags():
             tags.append(tag.__dict__)
     return json.dumps(tags)
 
+def get_single_tag(id):
+    with sqlite3.connect('./rare.db') as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        cmd = """
+            SELECT
+                t.id,
+                t.name
+            FROM tags t
+            WHERE t.id = ?
+        """
+        params = (id, )
+
+        db_cursor.execute(cmd, params)
+
+        data = db_cursor.fetchone()
+
+        tag = Tag(data['id'], data['name'])
+
+        return json.dumps(tag.__dict__)
+
 def create_tag(new_tag):
     with sqlite3.connect('./rare.db') as conn:
         db_cursor = conn.cursor()
