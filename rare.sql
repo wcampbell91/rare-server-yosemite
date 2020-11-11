@@ -41,7 +41,7 @@ CREATE TABLE 'users'  (
       `user_type` TEXT NOT NULL
 );
 
-INSERT INTO 'users' VALUES(null, 'Butt Chugg', '23423', 'coolGuy123', 'chugg.butt@email.com', '223423', 'admin', 'password')
+INSERT INTO 'users' VALUES(null, 'Butt Chugg', '23423', 'coolGuy123', 'chugg.butt@email.com', '223423', 'admin', 'password');
 
 ALTER TABLE 'users'
 ADD 'password' TEXT

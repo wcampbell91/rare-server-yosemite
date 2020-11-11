@@ -132,7 +132,7 @@ def get_single_post(id):
     return json.dumps(posts)
 
 def update_post(id, new_post):
-    with sqlite3.connect("../rare.db") as conn:
+    with sqlite3.connect("./rare.db") as conn:
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
@@ -153,7 +153,7 @@ def update_post(id, new_post):
         return True
 
 def delete_post(id):
-    with sqlite3.connect("../rare.db") as conn:
+    with sqlite3.connect("./rare.db") as conn:
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
