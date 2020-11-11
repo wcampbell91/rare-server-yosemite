@@ -6,14 +6,18 @@ def validate_user_login(user):
     with sqlite3.connect('./rare.db') as conn:
         db_cursor = conn.cursor()
 
-        cmd = """SELECT EXISTS ( SELECT * FROM users WHERE email = ? AND password = ?)"""
+        cmd = """SELECT id FROM users WHERE email = ? AND password = ?"""
         params = (user['email'], user['password'], )
 
         db_cursor.execute(cmd, params)
         response = db_cursor.fetchone()
 
-        if response[0] == 1:
-            return json.dumps({"response": True})
+        if response is not None:
+            return json.dumps(
+            {
+                "response": True,
+                "user_id": response[0]
+            })
         else:
             return json.dumps({"response": False})
 
