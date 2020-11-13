@@ -46,7 +46,7 @@ def get_all_comments_by_post_id(post_id):
             
         FROM comments c
         WHERE c.post_id = ?
-        """, ( post_id, ))
+        """, (post_id, ))
 
         comments = []
         dataset = db_cursor.fetchall()
