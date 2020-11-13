@@ -63,9 +63,9 @@ INSERT INTO `categories` VALUES(NULL, 'TEST 3');
 INSERT INTO `categories` VALUES(NULL, 'TEST 4');
 
 
-INSERT INTO 'comments' VALUES(NULL, 'footballssss', 'here is a cool comment on football', 'idkbro', 11/17/2020, 1)
-INSERT INTO 'comments' VALUES(NULL, 'indie', 'here is a cool comment on football', 'bro', 11/17/2020, 2)
-INSERT INTO 'comments' VALUES(NULL, 'folk', 'here is a cool comment on football', 'idk', 11/17/2020, 3)
+INSERT INTO 'comments' VALUES(NULL, 'footballssss', 'here is a cool comment on football', 'idkbro', "11/17/2020", 1);
+INSERT INTO 'comments' VALUES(NULL, 'indie', 'here is a cool comment on football', 'bro', "11/17/2020", 2);
+INSERT INTO 'comments' VALUES(NULL, 'folk', 'here is a cool comment on football', 'idk', "11/17/2020", 3)
 DELETE FROM comments WHERE id='5';
 
 
