@@ -69,7 +69,6 @@ def get_single_comment(id):
             c.author,
             c.creation_date,
             c.post_id
-            
         FROM comments c
         WHERE c.id = ?
         """, ( id, ))
