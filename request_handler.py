@@ -130,6 +130,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         else:
             self._set_headers(404)
 
+
         self.wfile.write("".encode())
     
     def parse_url(self, path):
